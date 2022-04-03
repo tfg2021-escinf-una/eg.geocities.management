@@ -1,9 +1,10 @@
 import * as express from 'express';
 import { useSwagger } from './swagger';
 import { useCountryRoutes } from './app/routes';
+import bodyParser = require('body-parser');
 
 const app = express();
-const bodyParser = require('body-parser');
+
 
 app.use(bodyParser.json());
 

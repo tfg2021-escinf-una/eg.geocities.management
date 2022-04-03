@@ -1,6 +1,5 @@
-import { Application } from "express";
-const swaggerUi = require('swagger-ui-express');
-const swaggerJsDoc = require('swagger-jsdoc');
+import swaggerUi = require('swagger-ui-express');
+import swaggerJsDoc = require('swagger-jsdoc');
 
 export const useSwagger = (app)  => {
   const options = {
@@ -16,8 +15,8 @@ export const useSwagger = (app)  => {
         license: {
           name: 'MIT',
         },
-        version: '1.0.1',
-        basePath: '/'
+        version: '0.0.0',
+        basePath: '/api'
       },
     },
     apis: ['**/*.ts'], // files containing annotations as above

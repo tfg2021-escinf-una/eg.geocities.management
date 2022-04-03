@@ -5,10 +5,12 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "lint": "nx run geography:lint"
   },
   "private": true,
   "dependencies": {
+    "axios": "^0.26.1",
     "express": "4.17.2",
     "tslib": "^2.0.0"
   },
