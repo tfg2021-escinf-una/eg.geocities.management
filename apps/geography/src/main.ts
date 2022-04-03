@@ -1,17 +1,20 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import * as express from 'express';
+import { useSwagger } from './swagger';
+import { useCountryRoutes } from './app/routes';
 
 const app = express();
+const bodyParser = require('body-parser');
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to geography!' });
-});
+app.use(bodyParser.json());
 
-const port = process.env.port || 3333;
+// swagger
+useSwagger(app);
+
+// inject routes
+useCountryRoutes(app);
+
+// server configuration
+const port = process.env.port || 3000;
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/api`);
 });
