@@ -21,7 +21,7 @@ export const useCountryRoutes = (app : Application) => {
    *  get:
    *    tags:
    *      - Countries
-   *    summary: Endpoint used to get countries.
+   *    summary: Endpoint used to get a list countries.
    *    consumes:
    *      - application/json
    *    parameters:
@@ -45,7 +45,7 @@ export const useCountryRoutes = (app : Application) => {
    *  get:
    *    tags:
    *      - Countries
-   *    summary: Endpoint used to get countries.
+   *    summary: Endpoint used to get a specific country based on their code.
    *    consumes:
    *      - application/json
    *    parameters:
@@ -70,7 +70,7 @@ export const useCountryRoutes = (app : Application) => {
    *  get:
    *    tags:
    *      - Countries
-   *    summary: Endpoint used to get countries.
+   *    summary: Endpoint used to get a list of regions based on the country.
    *    consumes:
    *      - application/json
    *    parameters:
@@ -99,7 +99,7 @@ export const useCountryRoutes = (app : Application) => {
    *  get:
    *    tags:
    *      - Countries
-   *    summary: Endpoint used to get the divisions of a region.
+   *    summary: Endpoint used to get the divisions of a region based on a country.
    *    consumes:
    *      - application/json
    *    parameters:

@@ -11,7 +11,7 @@ export const getCountries = async (req : Request, res : Response) => {
 
   const response = await requestHandler({
     type: 'GET',
-    baseUrl: 'https://wft-geo-db.p.rapidapi.com',
+    baseUrl: process.env.XRapidAPIBaseUrl,
     endpoint: 'v1/geo/countries',
     params : reqQueryParams,
     headers: {
@@ -32,7 +32,7 @@ export const getCountryDetails = async(req : Request, res : Response) => {
 
   const response = await requestHandler({
     type: 'GET',
-    baseUrl: 'https://wft-geo-db.p.rapidapi.com',
+    baseUrl: process.env.XRapidAPIBaseUrl,
     endpoint: `v1/geo/countries/${req.params?.countryid}`,
     params : reqQueryParams,
     headers: {
@@ -54,7 +54,7 @@ export const getCountryRegions = async(req : Request, res : Response) => {
 
   const response = await requestHandler({
     type: 'GET',
-    baseUrl: 'https://wft-geo-db.p.rapidapi.com',
+    baseUrl: process.env.XRapidAPIBaseUrl,
     endpoint: `v1/geo/countries/${req.params?.countryid}/regions`,
     params : reqQueryParams,
     headers: {
@@ -70,13 +70,13 @@ export const getCountryRegionsDivisions = async(req : Request, res : Response) =
 
   const reqQueryParams = {
     sort : req.query?.languageCode,
-    offset : req.query?.asciiMode,
+    offset : req.query?.offset,
     limit: req.query?.limit
   };
 
   const response = await requestHandler({
     type: 'GET',
-    baseUrl: 'https://wft-geo-db.p.rapidapi.com',
+    baseUrl: process.env.XRapidAPIBaseUrl,
     endpoint: `v1/geo/countries/${req.params?.countryid}/regions/${req.params?.regioncode}/adminDivisions`,
     params : reqQueryParams,
     headers: {
