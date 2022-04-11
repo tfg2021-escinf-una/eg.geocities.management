@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  geography: 
+    build:
+      context: .
+      dockerfile: ./apps/geography/Dockerfile
+    ports:
+      - "4200:3000"
+    environment: 
+      XRapidAPIBaseUrl: https://wft-geo-db.p.rapidapi.com
+      XRapidAPIHost: wft-geo-db.p.rapidapi.com
+      XRapidAPIKey: 52a0ab89d0msh2d9eb5f9ced6abdp1dea5djsnecb8c1c688af

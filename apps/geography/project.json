@@ -10,7 +10,8 @@
         "outputPath": "dist/apps/geography",
         "main": "apps/geography/src/main.ts",
         "tsConfig": "apps/geography/tsconfig.app.json",
-        "assets": ["apps/geography/src/assets"]
+        "assets": ["apps/geography/src/assets"],
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {
@@ -45,6 +46,26 @@
       "options": {
         "jestConfig": "apps/geography/jest.config.js",
         "passWithNoTests": true
+      }
+    },
+    "docker": {
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "file": "apps/geography/Dockerfile",
+        "push": true,
+        "metadata": {
+          "images": ["eg.geocities.management", "inftfg2021"],
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=semver,pattern={{version}}",
+            "type=semver,pattern={{major}}.{{minor}}",
+            "type=semver,pattern={{major}}",
+            "type=sha"
+          ]
+        }
       }
     }
   },

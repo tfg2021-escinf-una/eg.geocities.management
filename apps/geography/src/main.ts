@@ -5,8 +5,12 @@ import bodyParser = require('body-parser');
 
 const app = express();
 
-
 app.use(bodyParser.json());
+
+// liveness route 
+app.get('/', (req, res) => {
+  res.send('Web API running')
+})
 
 // swagger
 useSwagger(app);

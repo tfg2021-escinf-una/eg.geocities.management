@@ -19,7 +19,7 @@ export const useSwagger = (app)  => {
         basePath: '/api'
       },
     },
-    apis: ['**/*.ts'], // files containing annotations as above
+    apis: ['**/*.ts', 'main.js'], // files containing annotations as above
   };
 
   const swaggerDocs = swaggerJsDoc(options);
