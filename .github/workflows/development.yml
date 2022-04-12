@@ -8,10 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [ '12', '14', '16' ]
-    name: Node ${{ matrix.node }} sample
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -21,7 +17,7 @@ jobs:
     - name: Build Applications Within the Repository.
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node }}
+        node-version: '14'
     - run: npm install
     - run: npm run build
 
@@ -29,22 +25,13 @@ jobs:
       id: appVersioning
       uses: paulhatch/semantic-version@v4.0.2
       with:
-        # The prefix to use to identify tags
         tag_prefix: "dev-"
-        # A string which, if present in a git commit, indicates that a change represents a
-        # major (breaking) change, supports regular expressions wrapped with '/'
         major_pattern: "(MAJOR)"
-        # Same as above except indicating a minor change, supports regular expressions wrapped with '/'
         minor_pattern: "(MINOR)"
-        # A string to determine the format of the version output
         format: "${major}.${minor}.${patch}-prerelease${increment}"
-        # Named version, will be used as suffix for name version tag
         namespace: ''
-        # If this is set to true, *every* commit will be treated as a new version.
         bump_each_commit: true
-        # If true, the body of commits will also be searched for major/minor patterns to determine the version type.
         search_commit_body: true
-        # The output method used to generate list of users, 'csv' or 'json'.
         user_format_type: "csv"
     
     - name: Verifying Docker Credentials
@@ -56,4 +43,8 @@ jobs:
     - name: Build Docker Image
       run: |
         docker build -t ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ steps.appVersioning.outputs.version_tag }} -f ./apps/geography/Dockerfile .
-   
+
+    - name: Publish Docker Image
+      run: |
+        echo ${{ secrets.DOCKER_PASS }} | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
+        docker push ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ steps.appVersioning.outputs.version_tag }}   
