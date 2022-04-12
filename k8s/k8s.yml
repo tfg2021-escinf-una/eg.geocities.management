@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: RapidAPISecrets
+  name: apiSecrets
 type: Opaque
 stringData: 
-  config.yml: |
-    XRapidAPIBaseUrl: $XRapidAPIBaseUrl
-    XRapidAPIHost: $XRapidAPIHost
-    XRapidAPIKey: $XRapidAPIKey
+  XRapidAPIBaseUrl: $XRapidAPIBaseUrl
+  XRapidAPIHost: $XRapidAPIHost
+  XRapidAPIKey: $XRapidAPIKey
 
-apiVersion: apps/v1
+---
+apiVersion: v1
 kind: Deployment
 metadata:
   name: eg-geocities-management
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: eg-geocities-management
@@ -24,7 +24,7 @@ spec:
         app: eg-geocities-management
     spec:
       containers:
-      - image: inftfg2021/eg.identity.management:latest
+      - image: inftfg2021/eg.geocities.management:latest
         name: eg-geocities-management
         env: 
           - name: NODE_ENV
@@ -32,17 +32,17 @@ spec:
           - name: XRapidAPIBaseUrl
             valueFrom:
               secretKeyRef:
-                name: RapidAPISecrets
+                name: apiSecrets
                 key: XRapidAPIBaseUrl
           - name: XRapidAPIHost
             valueFrom:
               secretKeyRef:
-                name: RapidAPISecrets
+                name: apiSecrets
                 key: XRapidAPIHost
-           - name: XRapidAPIKey
+          - name: XRapidAPIKey
             valueFrom:
               secretKeyRef:
-                name: RapidAPISecrets
+                name: apiSecrets
                 key: XRapidAPIKey
 ---
 apiVersion: v1

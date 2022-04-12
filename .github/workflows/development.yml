@@ -22,7 +22,7 @@ jobs:
     - run: npm run build
 
     - name: Application Versioning
-      id: appVersioning
+      id: versioning
       uses: paulhatch/semantic-version@v4.0.2
       with:
         tag_prefix: "dev-"
@@ -42,9 +42,39 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ steps.appVersioning.outputs.version_tag }} -f ./apps/geography/Dockerfile .
+        docker build -t ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ steps.versioning.outputs.version_tag }} -f ./apps/geography/Dockerfile .
 
     - name: Publish Docker Image
       run: |
         echo ${{ secrets.DOCKER_PASS }} | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
-        docker push ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ steps.appVersioning.outputs.version_tag }}   
+        docker push ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ steps.versioning.outputs.version_tag }}   
+        
+    - name: Defining tag as env variable
+      run : | 
+        echo "tag=${{ steps.versioning.outputs.version_tag }}" >> $GITHUB_ENV 
+  
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          
+      - name: Get Kube Config
+        uses: okteto/actions/namespace@v1
+        id: namespace
+        with:
+          token: ${{ secrets.OKTETO_TOKEN }}
+          namespace: dev-tfg2021-escinf-una
+
+      - name: Deploy Application to Okteto Cloud
+        uses: okteto/actions/deploy@v1
+        env:
+          KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}
+        with:
+          namespace: dev-tfg2021-escinf-una
+          manifest: ./k8s/k8s.yml
+          tag: ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ env.tag }}
+          waitOn: deployment/eg-geocities-management   
+    needs: [build]
