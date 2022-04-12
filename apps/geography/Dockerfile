@@ -8,6 +8,7 @@ WORKDIR /app
 
 COPY /package.json .
 RUN npm install
+
 COPY /dist/apps/geography .
 
 ENTRYPOINT ["node", "./main.js"]
