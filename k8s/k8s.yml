@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: apiSecrets
+  name: xapisecrets
 type: Opaque
 stringData: 
   XRapidAPIBaseUrl: $XRapidAPIBaseUrl
@@ -9,7 +9,7 @@ stringData:
   XRapidAPIKey: $XRapidAPIKey
 
 ---
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: eg-geocities-management
@@ -32,17 +32,17 @@ spec:
           - name: XRapidAPIBaseUrl
             valueFrom:
               secretKeyRef:
-                name: apiSecrets
+                name: xapisecrets
                 key: XRapidAPIBaseUrl
           - name: XRapidAPIHost
             valueFrom:
               secretKeyRef:
-                name: apiSecrets
+                name: xapisecrets
                 key: XRapidAPIHost
           - name: XRapidAPIKey
             valueFrom:
               secretKeyRef:
-                name: apiSecrets
+                name: xapisecrets
                 key: XRapidAPIKey
 ---
 apiVersion: v1
