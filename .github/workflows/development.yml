@@ -9,7 +9,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - name: Application Versioning
+      id: appVersioning
       uses: paulhatch/semantic-version@v4.0.2
       with:
         # The prefix to use to identify tags
@@ -21,7 +26,6 @@ jobs:
         minor_pattern: "(MINOR)"
         # A string to determine the format of the version output
         format: "${major}.${minor}.${patch}-prerelease${increment}"
-        # Optional path to check for changes. If any changes are detected in the path the
         # Named version, will be used as suffix for name version tag
         namespace: ''
         # If this is set to true, *every* commit will be treated as a new version.
@@ -30,15 +34,13 @@ jobs:
         search_commit_body: true
         # The output method used to generate list of users, 'csv' or 'json'.
         user_format_type: "csv"
-    
     - name: Verifying Docker Credentials
       uses: actions-hub/docker/login@master 
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USER }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASS }}   
 
-    - uses: actions/checkout@v2
     - name: Build Docker Image
       run: |
-        docker build -t ${{ secrets.DOCKER_USER }}/eg-geocities-management:${version_tag} -f ./apps/geography/Dockerfile .
+        docker build -t ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ steps.appVersioning.outputs.version_tag }} -f ./apps/geography/Dockerfile .
    
