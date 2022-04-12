@@ -48,8 +48,11 @@ jobs:
       run: |
         echo ${{ secrets.DOCKER_PASS }} | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
         docker push ${{ secrets.DOCKER_USER }}/eg.geocities.management:${{ steps.versioning.outputs.version_tag }}   
-  
+    outputs:
+      version_tag: ${{ steps.versioning.outputs.version_tag }} 
+
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -71,6 +74,6 @@ jobs:
         with:
           namespace: dev-tfg2021-escinf-una
           manifest: ./k8s/k8s.yml
-          tag: ${{ secrets.DOCKER_USER }}/eg.geocities.management:latest
-          waitOn: deployment/eg-geocities-management   
-    needs: [build]
+          tag: ${{ secrets.DOCKER_USER }}/eg.geocities.management:${{ needs.build.outputs.version_tag }}
+          waitOn: deployment/eg-geocities-management  
+    
