@@ -24,7 +24,7 @@ spec:
         app: eg-geocities-management
     spec:
       containers:
-      - image: inftfg2021/eg-geocities-management:latest
+      - image: inftfg2021/eg.geocities.management:latest
         name: eg-geocities-management
         env: 
           - name: NODE_ENV

@@ -42,12 +42,12 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ steps.versioning.outputs.version_tag }} -f ./apps/geography/Dockerfile .
+        docker build -t ${{ secrets.DOCKER_USER }}/eg.geocities.management:${{ steps.versioning.outputs.version_tag }} -f ./apps/geography/Dockerfile .
 
     - name: Publish Docker Image
       run: |
         echo ${{ secrets.DOCKER_PASS }} | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
-        docker push ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ steps.versioning.outputs.version_tag }}   
+        docker push ${{ secrets.DOCKER_USER }}/eg.geocities.management:${{ steps.versioning.outputs.version_tag }}   
   
   deploy:
     runs-on: ubuntu-latest
@@ -71,6 +71,6 @@ jobs:
         with:
           namespace: dev-tfg2021-escinf-una
           manifest: ./k8s/k8s.yml
-          tag: ${{ secrets.DOCKER_USER }}/eg-geocities-management:latest
+          tag: ${{ secrets.DOCKER_USER }}/eg.geocities.management:latest
           waitOn: deployment/eg-geocities-management   
     needs: [build]
