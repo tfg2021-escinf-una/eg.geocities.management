@@ -48,10 +48,6 @@ jobs:
       run: |
         echo ${{ secrets.DOCKER_PASS }} | docker login --username ${{ secrets.DOCKER_USER }} --password-stdin
         docker push ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ steps.versioning.outputs.version_tag }}   
-        
-    - name: Defining tag as env variable
-      run : | 
-        echo "tag=${{ steps.versioning.outputs.version_tag }}" >> $GITHUB_ENV 
   
   deploy:
     runs-on: ubuntu-latest
@@ -60,7 +56,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+
       - name: Get Kube Config
         uses: okteto/actions/namespace@v1
         id: namespace
@@ -75,6 +71,6 @@ jobs:
         with:
           namespace: dev-tfg2021-escinf-una
           manifest: ./k8s/k8s.yml
-          tag: ${{ secrets.DOCKER_USER }}/eg-geocities-management:${{ env.tag }}
+          tag: ${{ secrets.DOCKER_USER }}/eg-geocities-management:latest
           waitOn: deployment/eg-geocities-management   
     needs: [build]
