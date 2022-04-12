@@ -9,7 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: paulhatch/semantic-version@v4.0.2
+    - name: Application Versioning
+      uses: paulhatch/semantic-version@v4.0.2
       with:
         # The prefix to use to identify tags
         tag_prefix: "dev-"
