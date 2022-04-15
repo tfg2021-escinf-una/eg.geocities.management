@@ -3,7 +3,7 @@ name: Build and Deploy in DEV Namespace
 on: 
  push:
   branches:
-    - feature/including_semantic_versioning
+    - development
 
 jobs:
   build:
@@ -59,15 +59,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      - name: Secrets Substitution
-        uses: microsoft/variable-substitution@v1 
-        with:
-          files: './k8s/k8s.yml'
-        env:
-          stringData.XRapidAPIBaseUrl: tcranz
-          stringData.XRapidAPIHost: pass
-          stringData.XRapidAPIKey: key
 
       - name: Get Kube Config
         uses: okteto/actions/namespace@v1
