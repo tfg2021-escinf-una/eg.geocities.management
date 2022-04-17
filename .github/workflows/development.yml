@@ -60,20 +60,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Kube Config
-        uses: okteto/actions/namespace@v1
-        id: namespace
+      - name: Signing into the Okteto Context
+        uses: okteto/context@latest
         with:
           token: ${{ secrets.OKTETO_TOKEN }}
-          namespace: dev-tfg2021-escinf-una
 
-      - name: Deploy Application to Okteto Cloud
-        uses: okteto/actions/deploy@v1
-        env:
-          KUBECONFIG: ${{ steps.namespace.outputs.kubeconfig }}
+      - name: "Deploy to K8s"
+        uses: okteto/pipeline@latest
         with:
+          name: eg-geocities-management
           namespace: dev-tfg2021-escinf-una
-          manifest: ./k8s/k8s.yml
-          tag: ${{ secrets.DOCKER_USER }}/eg.geocities.management:${{ needs.build.outputs.version_tag }}
-          waitOn: deployment/eg-geocities-management  
+          timeout: 8m
+          skipIfExists: true
+          filename: ./deployment/okteto-pipeline.yml
+          variables: "ENV=Development, TAG=${{ needs.build.outputs.version_tag }}"
     
