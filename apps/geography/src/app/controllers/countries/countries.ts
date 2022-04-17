@@ -11,12 +11,12 @@ export const getCountries = async (req : Request, res : Response) => {
 
   const response = await requestHandler({
     type: 'GET',
-    baseUrl: process.env.XRapidAPIBaseUrl,
+    baseUrl: process.env.APIBaseUrl,
     endpoint: 'v1/geo/countries',
     params : reqQueryParams,
     headers: {
-      'X-RapidAPI-Host': process.env.XRapidAPIHost,
-      'X-RapidAPI-Key': process.env.XRapidAPIKey
+      'X-RapidAPI-Host': process.env.APIHost,
+      'X-RapidAPI-Key': process.env.APIKey
     }
   });
 
@@ -32,12 +32,12 @@ export const getCountryDetails = async(req : Request, res : Response) => {
 
   const response = await requestHandler({
     type: 'GET',
-    baseUrl: process.env.XRapidAPIBaseUrl,
+    baseUrl: process.env.APIBaseUrl,
     endpoint: `v1/geo/countries/${req.params?.countryid}`,
     params : reqQueryParams,
     headers: {
-      'X-RapidAPI-Host': process.env.XRapidAPIHost,
-      'X-RapidAPI-Key': process.env.XRapidAPIKey
+      'X-RapidAPI-Host': process.env.APIHost,
+      'X-RapidAPI-Key': process.env.APIKey
     }
   });
 
@@ -54,12 +54,12 @@ export const getCountryRegions = async(req : Request, res : Response) => {
 
   const response = await requestHandler({
     type: 'GET',
-    baseUrl: process.env.XRapidAPIBaseUrl,
+    baseUrl: process.env.APIBaseUrl,
     endpoint: `v1/geo/countries/${req.params?.countryid}/regions`,
     params : reqQueryParams,
     headers: {
-      'X-RapidAPI-Host': process.env.XRapidAPIHost,
-      'X-RapidAPI-Key': process.env.XRapidAPIKey
+      'X-RapidAPI-Host': process.env.APIHost,
+      'X-RapidAPI-Key': process.env.APIKey
     }
   });
 
@@ -76,12 +76,12 @@ export const getCountryRegionsDivisions = async(req : Request, res : Response) =
 
   const response = await requestHandler({
     type: 'GET',
-    baseUrl: process.env.XRapidAPIBaseUrl,
+    baseUrl: process.env.APIBaseUrl,
     endpoint: `v1/geo/countries/${req.params?.countryid}/regions/${req.params?.regioncode}/adminDivisions`,
     params : reqQueryParams,
     headers: {
-      'X-RapidAPI-Host': process.env.XRapidAPIHost,
-      'X-RapidAPI-Key': process.env.XRapidAPIKey
+      'X-RapidAPI-Host': process.env.APIHost,
+      'X-RapidAPI-Key': process.env.APIKey
     }
   });
 
