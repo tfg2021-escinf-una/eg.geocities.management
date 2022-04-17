@@ -4,9 +4,9 @@ metadata:
   name: xapisecrets
 type: Opaque
 stringData: 
-  XRapidAPIBaseUrl: $XRapidAPIBaseUrl
-  XRapidAPIHost: $XRapidAPIHost
-  XRapidAPIKey: $XRapidAPIKey
+  APIBaseUrl: $XRapidAPIBaseUrl
+  APIHost: $XRapidAPIHost
+  APIKey: $XRapidAPIKey
 
 ---
 apiVersion: apps/v1
@@ -24,26 +24,26 @@ spec:
         app: eg-geocities-management
     spec:
       containers:
-      - image: inftfg2021/eg.geocities.management:latest
+      - image: inftfg2021/eg.geocities.management:$TAG
         name: eg-geocities-management
         env: 
           - name: NODE_ENV
-            value: Development
-          - name: XRapidAPIBaseUrl
+            value: $ENV
+          - name: APIBaseUrl
             valueFrom:
               secretKeyRef:
                 name: xapisecrets
-                key: XRapidAPIBaseUrl
-          - name: XRapidAPIHost
+                key: APIBaseUrl
+          - name: APIHost
             valueFrom:
               secretKeyRef:
                 name: xapisecrets
-                key: XRapidAPIHost
-          - name: XRapidAPIKey
+                key: APIHost
+          - name: APIKey
             valueFrom:
               secretKeyRef:
                 name: xapisecrets
-                key: XRapidAPIKey
+                key: APIKey
 ---
 apiVersion: v1
 kind: Service
