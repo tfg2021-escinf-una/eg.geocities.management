@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { environment } from '../../environment';
+import { environment } from '../../../environment';
 import { requestHandler } from '../../utils';
 
 const {

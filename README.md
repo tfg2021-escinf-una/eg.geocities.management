@@ -56,7 +56,8 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 
 ## Docker development
 
-Run `docker-compose up` to build and start the project on containers. The following docker compose file will mount a container in the 3000. 
+Run `docker-compose up` to build and start the project on containers. The following docker compose file will mount a container in the 3000.  
+You just need to set the right environment keys. Replace the the string that are into i  
 Navigate to http://localhost:3000/api/
 
 ```
@@ -69,16 +70,14 @@ services:
     ports:
       - "3000:3000"
     environment: 
-      APIBaseUrl: [APIBaseUrl]
-      APIHost: [APIHost]
-      APIKey: [APIKey]
+      APIBaseUrl: BASEURL_TO_BE_REPLACED
+      APIHost: APIHOST_TO_BE_REPLACED
+      APIKey: APIKEY_TO_BE_REPLACED
 ```
 
 ## Running unit tests
 
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
+Run `npm run test` to execute the unit tests via [Jest](https://jestjs.io).
 
 ## Understand your workspace
 

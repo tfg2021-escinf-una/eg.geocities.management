@@ -1,10 +1,5 @@
 import { Application, NextFunction, Request, Response } from 'express';
-import {
-  controllerName, getCountries,
-  getCountryDetails,
-  getCountryRegions,
-  getCountryRegionsDivisions
-} from '../../controllers';
+import { controllerName, getCountries, getCountryDetails, getCountryRegions, getCountryRegionsDivisions } from '../../controllers';
 import { defaultPrefix } from '../prefix';
 
 export const useCountryRoutes = (app : Application) => {
