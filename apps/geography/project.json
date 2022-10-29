@@ -17,13 +17,7 @@
         "production": {
           "optimization": true,
           "extractLicenses": true,
-          "inspect": false,
-          "fileReplacements": [
-            {
-              "replace": "apps/geography/src/environments/environment.ts",
-              "with": "apps/geography/src/environments/environment.prod.ts"
-            }
-          ]
+          "inspect": false
         }
       }
     },
