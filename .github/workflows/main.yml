@@ -84,7 +84,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: rickstaa/action-create-tag@v1
+      - name: Tag repository
+        uses: rickstaa/action-create-tag@v1
         with:
           tag: ${{ needs.build.outputs.version_tag }}
           message: "Latest release deployed on PROD"
