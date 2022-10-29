@@ -1,5 +1,4 @@
-import { IGenericRequest, IGenericResponse } from './interfaces';
-import { useAxios } from '../useAxios';
+import { IGenericRequest, IGenericResponse, useAxios } from '../useAxios';
 
 export const requestHandler = async({
   type,
@@ -8,7 +7,6 @@ export const requestHandler = async({
   params,
   headers,
 } : IGenericRequest) : Promise<IGenericResponse> => {
-
   const genericResponse : IGenericResponse = {
     response : {},
     errors : [],
@@ -16,7 +14,6 @@ export const requestHandler = async({
   };
 
   try {
-
     const response = await useAxios({
       type: type,
       baseUrl: baseUrl,

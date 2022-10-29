@@ -1,6 +1,6 @@
 
 
-# EG GeoCities Management
+# Geocities API
 
 This project was generated using [Nx](https://nx.dev).
 
@@ -47,27 +47,37 @@ Libraries are shareable across libraries and applications. They can be imported 
 
 ## Development server
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `npm run start` for a dev server. Navigate to http://localhost:3000/api/. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
 
 ## Build
 
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Docker development
+
+Run `docker-compose up` to build and start the project on containers. The following docker compose file will mount a container in the 3000.  
+You just need to set the right environment keys. Replace the the string that are into i  
+Navigate to http://localhost:3000/api/
+
+```
+version: '3.7'
+services:
+  geography: 
+    build:
+      context: .
+      dockerfile: ./apps/geography/Dockerfile
+    ports:
+      - "3000:3000"
+    environment: 
+      APIBaseUrl: BASEURL_TO_BE_REPLACED
+      APIHost: APIHOST_TO_BE_REPLACED
+      APIKey: APIKEY_TO_BE_REPLACED
+```
 
 ## Running unit tests
 
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+Run `npm run test` to execute the unit tests via [Jest](https://jestjs.io).
 
 ## Understand your workspace
 
