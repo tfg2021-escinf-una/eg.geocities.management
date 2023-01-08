@@ -1,5 +1,3 @@
-
-
 # Geocities API
 
 This project was generated using [Nx](https://nx.dev).
