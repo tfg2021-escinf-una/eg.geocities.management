@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
 export interface IGenericResponse {
-  response? : any,
+  data? : any,
   errors? : any,
   statusCode?: number,
 }

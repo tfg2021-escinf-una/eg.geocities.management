@@ -7,14 +7,11 @@ export const requestHandler = async({
   params,
   headers,
 } : IGenericRequest) : Promise<IGenericResponse> => {
-  const genericResponse : IGenericResponse = {
-    response : {},
-    errors : [],
-    statusCode : 0
-  };
-
   try {
-    const response = await useAxios({
+    const {
+      data,
+      status
+    } = await useAxios({
       type: type,
       baseUrl: baseUrl,
       endpoint: endpoint,
@@ -22,14 +19,16 @@ export const requestHandler = async({
       headers: headers
     });
 
-    genericResponse.response = response.data;
-    genericResponse.errors = [];
-    genericResponse.statusCode = response.status;
+    return {
+      data: data,
+      errors: [],
+      statusCode: status
+    }
   }
   catch(err){
     console.error(err);
-    genericResponse.errors = err;
+    return {
+      errors: err
+    };
   }
-
-  return genericResponse;
 };
