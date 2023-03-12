@@ -28,6 +28,7 @@ export const requestHandler = async({
   catch(err){
     console.error(err);
     return {
+      statusCode: err.response.status,
       errors: err
     };
   }

@@ -26,7 +26,8 @@ export const getCountries = async (req : Request, res : Response) => {
   });
 
   return res.status(response.statusCode)
-    .json(response);
+    .json(response)
+    .end();
 };
 
 export const getCountryDetails = async(req : Request, res : Response) => {
@@ -47,7 +48,8 @@ export const getCountryDetails = async(req : Request, res : Response) => {
   });
 
   res.status(response.statusCode)
-    .json(response);
+    .json(response)
+    .end();
 };
 
 export const getCountryRegions = async(req : Request, res : Response) => {
@@ -69,7 +71,8 @@ export const getCountryRegions = async(req : Request, res : Response) => {
   });
 
   res.status(response.statusCode)
-    .json(response);
+    .json(response)
+    .end();
 };
 
 export const getCountryRegionsDivisions = async(req : Request, res : Response) => {
@@ -91,5 +94,6 @@ export const getCountryRegionsDivisions = async(req : Request, res : Response) =
   });
 
   res.status(response.statusCode)
-    .json(response);
+    .json(response)
+    .end();
 };
